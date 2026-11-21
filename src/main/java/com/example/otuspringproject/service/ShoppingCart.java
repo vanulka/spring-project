@@ -31,6 +31,10 @@ public class ShoppingCart {
         items.add(product);
     }
 
+    public void removeItem(Long productId) {
+        items.removeIf(item -> item.getId().equals(productId));
+    }
+
     public void clear() {
         items.clear();
     }

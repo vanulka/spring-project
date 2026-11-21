@@ -41,6 +41,12 @@ public class MainController {
         return "redirect:/";
     }
 
+    @PostMapping("/cart/remove")
+    public String removeFromCart(@RequestParam Long productId) {
+        shoppingCart.removeItem(productId);
+        return "redirect:/";
+    }
+
     @GetMapping("/checkout")
     public String checkout(Model model) {
         if (shoppingCart.getItems().isEmpty()) {
