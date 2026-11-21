@@ -3,13 +3,36 @@
 <head>
     <title>Главная страница</title>
     <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .box { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+    </style>
 </head>
 <body>
 <h1>Добро пожаловать в систему!</h1>
-<p>Вы успешно авторизовались.</p>
 
-<div>
+<div class="box">
+    <p>Вы успешно авторизовались.</p>
     <a th:href="@{/admin/products}">Перейти в админку (Управление товарами)</a>
+</div>
+
+<div class="box">
+    <h3>Ваша корзина (Session Bean)</h3>
+    <ul>
+        <li th:each="item : ${cartItems}" th:text="${item}">Товар</li>
+        <li th:if="${cartItems.isEmpty()}">Корзина пуста</li>
+    </ul>
+
+    <form th:action="@{/cart/add}" method="post">
+        <input type="text" name="itemName" placeholder="Название товара" required>
+        <button type="submit">Добавить в корзину</button>
+    </form>
+</div>
+
+<div class="box">
+    <h3>Генератор чеков (Prototype Bean)</h3>
+    <p>Текущий ID чека: <strong th:text="${receiptId}"></strong></p>
+    <p><i>Обновите страницу (F5) — ID чека изменится, так как это Prototype. А товары в корзине останутся, так как это Session.</i></p>
 </div>
 
 <form th:action="@{/logout}" method="post">
