@@ -1,42 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Главная страница</title>
+    <title>Магазин</title>
     <meta charset="UTF-8">
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
-        .box { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        .container { display: flex; gap: 20px; }
+        .products { flex: 2; }
+        .cart { flex: 1; background: #f9f9f9; padding: 15px; border-radius: 5px; height: fit-content;}
+        .product-card { border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
+        .btn { padding: 5px 10px; background: #007bff; color: white; border: none; cursor: pointer; text-decoration: none;}
+        .btn-buy { background: #28a745; }
+        .admin-link { float: right; }
     </style>
 </head>
 <body>
-<h1>Добро пожаловать в систему!</h1>
-
-<div class="box">
-    <p>Вы успешно авторизовались.</p>
-    <a th:href="@{/admin/products}">Перейти в админку (Управление товарами)</a>
+<div style="display: flex; justify-content: space-between;">
+    <h1>Витрина магазина</h1>
+    <div>
+        <!-- Ссылка на админку видна только админу (в реальности лучше проверять через Thymeleaf Security, но пока оставим так) -->
+        <a th:href="@{/admin/products}" class="admin-link">Админка</a> |
+        <form th:action="@{/logout}" method="post" style="display: inline;">
+            <button type="submit" style="background:none; border:none; color:blue; cursor:pointer; text-decoration:underline;">Выйти</button>
+        </form>
+    </div>
 </div>
 
-<div class="box">
-    <h3>Ваша корзина (Session Bean)</h3>
-    <ul>
-        <li th:each="item : ${cartItems}" th:text="${item}">Товар</li>
-        <li th:if="${cartItems.isEmpty()}">Корзина пуста</li>
-    </ul>
+<div class="container">
+    <div class="products">
+        <h3>Товары</h3>
+        <div th:each="product : ${products}" class="product-card">
+            <strong th:text="${product.name}">Название</strong> -
+            <span th:text="${product.price} + ' руб.'">0</span>
+            <form th:action="@{/cart/add}" method="post" style="display: inline; float: right;">
+                <input type="hidden" name="productId" th:value="${product.id}">
+                <button type="submit" class="btn btn-buy">В корзину</button>
+            </form>
+            <div style="clear: both;"></div>
+        </div>
+        <div th:if="${products.isEmpty()}">Товаров пока нет. Зайдите под админом и добавьте их!</div>
+    </div>
 
-    <form th:action="@{/cart/add}" method="post">
-        <input type="text" name="itemName" placeholder="Название товара" required>
-        <button type="submit">Добавить в корзину</button>
-    </form>
+    <div class="cart">
+        <h3>Корзина</h3>
+        <ul>
+            <li th:each="item : ${cartItems}">
+                <span th:text="${item.name}">Товар</span> - <span th:text="${item.price}">0</span>
+            </li>
+            <li th:if="${cartItems.isEmpty()}">Пусто</li>
+        </ul>
+        <hr>
+        <strong>Итого: <span th:text="${cartTotal}">0</span> руб.</strong>
+        <br><br>
+        <a th:if="${!cartItems.isEmpty()}" th:href="@{/checkout}" class="btn btn-buy">Оформить заказ</a>
+    </div>
 </div>
-
-<div class="box">
-    <h3>Генератор чеков (Prototype Bean)</h3>
-    <p>Текущий ID чека: <strong th:text="${receiptId}"></strong></p>
-    <p><i>Обновите страницу (F5) — ID чека изменится, так как это Prototype. А товары в корзине останутся, так как это Session.</i></p>
-</div>
-
-<form th:action="@{/logout}" method="post">
-    <button type="submit">Выйти</button>
-</form>
 </body>
 </html>
