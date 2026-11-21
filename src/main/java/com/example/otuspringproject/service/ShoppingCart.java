@@ -1,5 +1,6 @@
 package com.example.otuspringproject.service;
 
+import com.example.otuspringproject.model.Product;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.springframework.context.annotation.Scope;
@@ -14,7 +15,7 @@ import java.util.List;
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ShoppingCart {
 
-    private List<String> items = new ArrayList<>();
+    private List<Product> items = new ArrayList<>();
 
     @PostConstruct
     public void init() {
@@ -26,11 +27,19 @@ public class ShoppingCart {
         System.out.println("ShoppingCart уничтожен (конец сессии). Товаров в корзине было: " + items.size());
     }
 
-    public void addItem(String item) {
-        items.add(item);
+    public void addItem(Product product) {
+        items.add(product);
     }
 
-    public List<String> getItems() {
+    public void clear() {
+        items.clear();
+    }
+
+    public List<Product> getItems() {
         return items;
+    }
+
+    public double getTotalPrice() {
+        return items.stream().mapToDouble(Product::getPrice).sum();
     }
 }
