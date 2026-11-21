@@ -1,58 +1,75 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Магазин</title>
+    <title>Витрина магазина</title>
     <meta charset="UTF-8">
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .container { display: flex; gap: 20px; }
         .products { flex: 2; }
-        .cart { flex: 1; background: #f9f9f9; padding: 15px; border-radius: 5px; height: fit-content;}
-        .product-card { border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
-        .btn { padding: 5px 10px; background: #007bff; color: white; border: none; cursor: pointer; text-decoration: none;}
+        .cart { flex: 1; background: #f9f9f9; padding: 15px; border-radius: 5px; height: fit-content; min-width: 250px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .product-card { border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; }
+        .btn { padding: 8px 12px; background: #007bff; color: white; border: none; cursor: pointer; text-decoration: none; border-radius: 4px; font-size: 14px; }
+        .btn:hover { background: #0056b3; }
         .btn-buy { background: #28a745; }
-        .admin-link { float: right; }
+        .btn-buy:hover { background: #218838; }
+        .cart-list { padding-left: 0; list-style-type: none; margin-top: 10px; }
+        .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px dashed #ccc; padding-bottom: 5px; }
+        .btn-remove { background: none; border: none; color: #dc3545; cursor: pointer; font-weight: bold; font-size: 18px; padding: 0 5px; }
+        .btn-remove:hover { color: darkred; }
     </style>
 </head>
 <body>
-<div style="display: flex; justify-content: space-between;">
+<div class="header">
     <h1>Витрина магазина</h1>
     <div>
-        <!-- Ссылка на админку видна только админу (в реальности лучше проверять через Thymeleaf Security, но пока оставим так) -->
-        <a th:href="@{/admin/products}" class="admin-link">Админка</a> |
+        <a th:href="@{/admin/products}" style="margin-right: 15px; color: #007bff; text-decoration: none;">Админка</a>
         <form th:action="@{/logout}" method="post" style="display: inline;">
-            <button type="submit" style="background:none; border:none; color:blue; cursor:pointer; text-decoration:underline;">Выйти</button>
+            <button type="submit" style="background:none; border:none; color:#007bff; cursor:pointer; text-decoration:underline; font-size: 16px;">Выйти</button>
         </form>
     </div>
 </div>
 
 <div class="container">
     <div class="products">
-        <h3>Товары</h3>
+        <h3>Доступные товары</h3>
         <div th:each="product : ${products}" class="product-card">
-            <strong th:text="${product.name}">Название</strong> -
-            <span th:text="${product.price} + ' руб.'">0</span>
-            <form th:action="@{/cart/add}" method="post" style="display: inline; float: right;">
+            <div>
+                <strong th:text="${product.name}">Название</strong> -
+                <span th:text="${product.price} + ' руб.'">0</span>
+            </div>
+            <form th:action="@{/cart/add}" method="post" style="margin: 0;">
                 <input type="hidden" name="productId" th:value="${product.id}">
                 <button type="submit" class="btn btn-buy">В корзину</button>
             </form>
-            <div style="clear: both;"></div>
         </div>
-        <div th:if="${products.isEmpty()}">Товаров пока нет. Зайдите под админом и добавьте их!</div>
+        <div th:if="${products.isEmpty()}" style="color: gray;">
+            Товаров пока нет. Зайдите под админом и добавьте их!
+        </div>
     </div>
 
     <div class="cart">
-        <h3>Корзина</h3>
-        <ul>
-            <li th:each="item : ${cartItems}">
-                <span th:text="${item.name}">Товар</span> - <span th:text="${item.price}">0</span>
+        <h3>Ваша корзина</h3>
+        <ul class="cart-list">
+            <li th:each="item : ${cartItems}" class="cart-item">
+                    <span>
+                        <span th:text="${item.name}">Товар</span> -
+                        <span th:text="${item.price}">0</span> руб.
+                    </span>
+                <form th:action="@{/cart/remove}" method="post" style="margin: 0;">
+                    <input type="hidden" name="productId" th:value="${item.id}">
+                    <button type="submit" class="btn-remove" title="Удалить товар">✖</button>
+                </form>
             </li>
-            <li th:if="${cartItems.isEmpty()}">Пусто</li>
+            <li th:if="${cartItems.isEmpty()}" style="color: gray;">Корзина пуста</li>
         </ul>
         <hr>
-        <strong>Итого: <span th:text="${cartTotal}">0</span> руб.</strong>
-        <br><br>
-        <a th:if="${!cartItems.isEmpty()}" th:href="@{/checkout}" class="btn btn-buy">Оформить заказ</a>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 18px;">
+            <strong>Итого:</strong>
+            <strong><span th:text="${cartTotal}">0</span> руб.</strong>
+        </div>
+        <a th:if="${!cartItems.isEmpty()}" th:href="@{/checkout}" class="btn btn-buy" style="display: block; text-align: center; font-size: 16px;">Оформить заказ</a>
     </div>
 </div>
 </body>
