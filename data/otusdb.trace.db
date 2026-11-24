@@ -616,3 +616,132 @@ CREATE ALIAS IF NOT EXISTS STOP_SERVER FOR 'org.h2.server.TcpServer.stopServer' 
 	at org.h2.tools.Server.start(Server.java:551)
 	at org.h2.engine.Database.startServer(Database.java:692)
 	... 29 more
+2026-11-22 04:48:48.586312+03:00 database: opening C:/Users/ultra/otus-spring-project/data/otusdb
+org.h2.message.DbException: Доступ к классу "org.h2.server.TcpServer" запрещен
+Access to the class "org.h2.server.TcpServer" is denied; SQL statement:
+CREATE ALIAS IF NOT EXISTS STOP_SERVER FOR 'org.h2.server.TcpServer.stopServer' [90134-240]
+	at org.h2.message.DbException.convert(DbException.java:395)
+	at org.h2.engine.Database.startServer(Database.java:694)
+	at org.h2.engine.Database.<init>(Database.java:321)
+	at org.h2.engine.Engine.openSession(Engine.java:92)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:350)
+	at org.h2.engine.SessionRemote.autoReconnect(SessionRemote.java:522)
+	at org.h2.engine.SessionRemote.removeServer(SessionRemote.java:482)
+	at org.h2.engine.SessionRemote.hasPendingTransaction(SessionRemote.java:190)
+	at org.h2.jdbc.JdbcConnection.close(JdbcConnection.java:377)
+	at org.jkiss.dbeaver.model.impl.jdbc.JDBCDataSource.lambda$closeConnection$0(JDBCDataSource.java:530)
+	at org.jkiss.dbeaver.utils.RuntimeUtils$MonitoringTask.run(RuntimeUtils.java:891)
+	at org.jkiss.dbeaver.utils.RuntimeUtils$1.run(RuntimeUtils.java:289)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:110)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: Доступ к классу "org.h2.server.TcpServer" запрещен
+Access to the class "org.h2.server.TcpServer" is denied; SQL statement:
+CREATE ALIAS IF NOT EXISTS STOP_SERVER FOR 'org.h2.server.TcpServer.stopServer' [90134-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.util.JdbcUtils.loadUserClass(JdbcUtils.java:176)
+	at org.h2.schema.FunctionAlias.loadClass(FunctionAlias.java:148)
+	at org.h2.schema.FunctionAlias.load(FunctionAlias.java:124)
+	at org.h2.schema.FunctionAlias.init(FunctionAlias.java:109)
+	at org.h2.schema.FunctionAlias.newInstance(FunctionAlias.java:83)
+	at org.h2.command.ddl.CreateFunctionAlias.update(CreateFunctionAlias.java:47)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:306)
+	at org.h2.command.Command.executeUpdate(Command.java:250)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.TcpServer.initManagementDb(TcpServer.java:97)
+	at org.h2.server.TcpServer.start(TcpServer.java:250)
+	at org.h2.tools.Server.start(Server.java:551)
+	at org.h2.engine.Database.startServer(Database.java:692)
+	... 14 more
+2026-11-22 04:48:48.803344+03:00 database: opening C:/Users/ultra/otus-spring-project/data/otusdb
+org.h2.message.DbException: Доступ к классу "org.h2.server.TcpServer" запрещен
+Access to the class "org.h2.server.TcpServer" is denied; SQL statement:
+CREATE ALIAS IF NOT EXISTS STOP_SERVER FOR 'org.h2.server.TcpServer.stopServer' [90134-240]
+	at org.h2.message.DbException.convert(DbException.java:395)
+	at org.h2.engine.Database.startServer(Database.java:694)
+	at org.h2.engine.Database.<init>(Database.java:321)
+	at org.h2.engine.Engine.openSession(Engine.java:92)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:350)
+	at org.h2.engine.SessionRemote.autoReconnect(SessionRemote.java:522)
+	at org.h2.engine.SessionRemote.removeServer(SessionRemote.java:482)
+	at org.h2.engine.SessionRemote.hasPendingTransaction(SessionRemote.java:190)
+	at org.h2.jdbc.JdbcConnection.close(JdbcConnection.java:377)
+	at org.jkiss.dbeaver.model.impl.jdbc.JDBCDataSource.lambda$closeConnection$0(JDBCDataSource.java:530)
+	at org.jkiss.dbeaver.utils.RuntimeUtils$MonitoringTask.run(RuntimeUtils.java:891)
+	at org.jkiss.dbeaver.utils.RuntimeUtils$1.run(RuntimeUtils.java:289)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:110)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: Доступ к классу "org.h2.server.TcpServer" запрещен
+Access to the class "org.h2.server.TcpServer" is denied; SQL statement:
+CREATE ALIAS IF NOT EXISTS STOP_SERVER FOR 'org.h2.server.TcpServer.stopServer' [90134-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.util.JdbcUtils.loadUserClass(JdbcUtils.java:176)
+	at org.h2.schema.FunctionAlias.loadClass(FunctionAlias.java:148)
+	at org.h2.schema.FunctionAlias.load(FunctionAlias.java:124)
+	at org.h2.schema.FunctionAlias.init(FunctionAlias.java:109)
+	at org.h2.schema.FunctionAlias.newInstance(FunctionAlias.java:83)
+	at org.h2.command.ddl.CreateFunctionAlias.update(CreateFunctionAlias.java:47)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:306)
+	at org.h2.command.Command.executeUpdate(Command.java:250)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.TcpServer.initManagementDb(TcpServer.java:97)
+	at org.h2.server.TcpServer.start(TcpServer.java:250)
+	at org.h2.tools.Server.start(Server.java:551)
+	at org.h2.engine.Database.startServer(Database.java:692)
+	... 14 more
+2026-11-22 04:48:48.868651+03:00 database: opening C:/Users/ultra/otus-spring-project/data/otusdb
+org.h2.message.DbException: Доступ к классу "org.h2.server.TcpServer" запрещен
+Access to the class "org.h2.server.TcpServer" is denied; SQL statement:
+CREATE ALIAS IF NOT EXISTS STOP_SERVER FOR 'org.h2.server.TcpServer.stopServer' [90134-240]
+	at org.h2.message.DbException.convert(DbException.java:395)
+	at org.h2.engine.Database.startServer(Database.java:694)
+	at org.h2.engine.Database.<init>(Database.java:321)
+	at org.h2.engine.Engine.openSession(Engine.java:92)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:350)
+	at org.h2.engine.SessionRemote.autoReconnect(SessionRemote.java:522)
+	at org.h2.engine.SessionRemote.removeServer(SessionRemote.java:482)
+	at org.h2.engine.SessionRemote.hasPendingTransaction(SessionRemote.java:190)
+	at org.h2.jdbc.JdbcConnection.close(JdbcConnection.java:377)
+	at org.jkiss.dbeaver.model.impl.jdbc.JDBCDataSource.lambda$closeConnection$0(JDBCDataSource.java:530)
+	at org.jkiss.dbeaver.utils.RuntimeUtils$MonitoringTask.run(RuntimeUtils.java:891)
+	at org.jkiss.dbeaver.utils.RuntimeUtils$1.run(RuntimeUtils.java:289)
+	at org.jkiss.dbeaver.model.runtime.AbstractJob.run(AbstractJob.java:110)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: Доступ к классу "org.h2.server.TcpServer" запрещен
+Access to the class "org.h2.server.TcpServer" is denied; SQL statement:
+CREATE ALIAS IF NOT EXISTS STOP_SERVER FOR 'org.h2.server.TcpServer.stopServer' [90134-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.util.JdbcUtils.loadUserClass(JdbcUtils.java:176)
+	at org.h2.schema.FunctionAlias.loadClass(FunctionAlias.java:148)
+	at org.h2.schema.FunctionAlias.load(FunctionAlias.java:124)
+	at org.h2.schema.FunctionAlias.init(FunctionAlias.java:109)
+	at org.h2.schema.FunctionAlias.newInstance(FunctionAlias.java:83)
+	at org.h2.command.ddl.CreateFunctionAlias.update(CreateFunctionAlias.java:47)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:306)
+	at org.h2.command.Command.executeUpdate(Command.java:250)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.h2.server.TcpServer.initManagementDb(TcpServer.java:97)
+	at org.h2.server.TcpServer.start(TcpServer.java:250)
+	at org.h2.tools.Server.start(Server.java:551)
+	at org.h2.engine.Database.startServer(Database.java:692)
+	... 14 more
