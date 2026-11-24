@@ -1,10 +1,13 @@
 package com.example.otuspringproject.controller;
 
+import com.example.otuspringproject.dto.UserRegistrationDto;
 import com.example.otuspringproject.model.User;
 import com.example.otuspringproject.repository.UserRepository;
+import jakarta.validation.Valid;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,18 +30,31 @@ public class AuthController {
 
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("userDto", new UserRegistrationDto());
         return "register";
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") User user) {
-        if (userRepository.findByUsername(user.getUsername()) != null) {
-            return "redirect:/register?error";
+    public String registerUser(@Valid @ModelAttribute("userDto") UserRegistrationDto userDto,
+                               BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "register";
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        if (userRepository.findByUsername(userDto.getUsername()) != null) {
+            bindingResult.rejectValue("username", "error.user", "Пользователь с таким именем уже существует");
+            return "register";
+        }
+
+        User user = new User();
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setRole(User.Role.USER);
+
         userRepository.save(user);
+
         return "redirect:/login?success";
     }
 }
