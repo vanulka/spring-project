@@ -4,7 +4,7 @@
 
 ## 🚀 Стек технологий
 *   **Java 21**
-*   **Spring Boot 3**
+*   **Spring Boot 4**
 *   **Spring Security** (Аутентификация, авторизация, роли)
 *   **Spring Data JPA / Hibernate** (Работа с БД)
 *   **H2 Database** (Файловый режим)
